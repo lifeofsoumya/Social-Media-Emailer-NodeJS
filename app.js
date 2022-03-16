@@ -1,8 +1,14 @@
 const express = require('express')
 const puppeteer = require('puppeteer');
 const mailer = require('nodemailer')
+const bodyParser = require('body-parser')
 
 const app = express();
+
+app.set('view engine', 'ejs'); // set the view engine to ejs
+
+app.use(bodyParser.urlencoded({extended:true})); //parses incoming request bodies in a middleware before you handle it
+app.use(express.static("public")); // use public folder to access static files like css
 
 var postNumber
 var imageHref
@@ -55,7 +61,7 @@ scrapeChannel(instUrl)
 
 
 app.get('/', (req, res)=>{
-    res.send(`Post Count is ${postNumber} & Dp link is ${imageHref}`)
+    res.render("notifier", {postNumberEjs: postNumber, imageHrefEjs: imageHref });
 })
 
 
