@@ -2,9 +2,9 @@
   "name": "social-media-email-notifiar-nodejs",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "app.js"
   },
   "author": "",
   "license": "ISC",
@@ -14,5 +14,8 @@
     "express": "^4.17.3",
     "nodemailer": "^6.7.2",
     "puppeteer": "^13.5.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
