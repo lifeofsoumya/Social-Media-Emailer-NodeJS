@@ -60,7 +60,7 @@ scrapeChannel(instUrl)
 
 
 app.get('/', (req, res)=>{
-    res.render("notifier", {postNumberEjs: postNumber, imageHrefEjs: imageHref });
+    res.render("notifier", {postNumberEjs: postNumber, imageHrefFile: imageHref});
 })
 
 app.post('/', (req, res)=> {
@@ -69,9 +69,10 @@ app.post('/', (req, res)=> {
 
     if (profileUrl.includes !== 'instagram.com'){
         profileUrl = `https://instagram.com/${profileUrl}`; // validating input of username or url format
+        // instUrl = profileUrl
     }
 })
 
 
-const port = process.env.PORT || 3000; 
+const port = process.env.PORT || 3000;
 app.listen(port, ()=>{console.log(`Listening to port ${port}`)})
