@@ -4,6 +4,9 @@ const mailer = require('nodemailer')
 
 const app = express();
 
+var postNumber
+var imageHref
+
 var instUrl = 'https://www.instagram.com/lifeofsoumya' // defining the scrape-able url
 
 async function scrapeChannel(url) { // init function with to be scraped url argument
@@ -18,7 +21,7 @@ async function scrapeChannel(url) { // init function with to be scraped url argu
     const text = await el.getProperty('textContent');       // choose type of data needed
     const postCounter = await text.jsonValue();    // extract the data type
 
-    const postNumber = parseInt(postCounter.replace('posts', ''))
+    postNumber = parseInt(postCounter.replace('posts', ''))
 
     console.log(postNumber)
 
@@ -33,26 +36,26 @@ async function scrapeChannel(url) { // init function with to be scraped url argu
     //         console.log(`post count is ${data.length}`)
     //         return data;
     //     })        
-        
-    const imageHref = await page.evaluate(() => { // function to get link of profile picture
-        return document.querySelector('._6q-tv').getAttribute('src').replace('/', '')
+
+
+    // function to get link of profile picture
+
+    imageHref = await page.evaluate(() => { 
+        return document.querySelector('._6q-tv').getAttribute('src').replace('/', '') 
         })
-    
+    console.log(`link of profile picture is ${imageHref}`)
 
-    const profPic = await page.goto(instUrl + imageHref)  // creates profile picture image url
-    console.log(`link of profile picture is ${profPic}`)
-
-    // const buffer = await profPic.buffer()
+    // const profPic = await page.goto(instUrl + imageHref) // creates profile picture image url
+    // const buffer = await profPic.buffer() // saves image to buffer temp
     // await writeFileAsync(path.join(__dirname, 'profPic.png'), buffer) // saves the profile picture
 }
-
 
 scrapeChannel(instUrl)
 
 
 
 app.get('/', (req, res)=>{
-    res.send('Working')
+    res.send(`Post Count is ${postNumber}`)
 })
 
 
