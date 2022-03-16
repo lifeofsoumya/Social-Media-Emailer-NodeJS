@@ -55,7 +55,7 @@ scrapeChannel(instUrl)
 
 
 app.get('/', (req, res)=>{
-    res.send(`Post Count is ${postNumber}`)
+    res.send(`Post Count is ${postNumber} & Dp link is ${imageHref}`)
 })
 
 
