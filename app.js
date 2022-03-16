@@ -59,9 +59,17 @@ async function scrapeChannel(url) { // init function with to be scraped url argu
 scrapeChannel(instUrl)
 
 
-
 app.get('/', (req, res)=>{
     res.render("notifier", {postNumberEjs: postNumber, imageHrefEjs: imageHref });
+})
+
+app.post('/', (req, res)=> {
+    const profileUrl = req.body.profile;
+    const notifyNumber = req.body.notifyNumber;
+
+    if (profileUrl.includes !== 'instagram.com'){
+        profileUrl = `https://instagram.com/${profileUrl}`; // validating input of username or url format
+    }
 })
 
 
