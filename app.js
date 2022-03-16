@@ -12,12 +12,32 @@ async function scrapeChannel(url) { // init function with to be scraped url argu
     const page = await browser.newPage();       // generate a headless browser
     await page.goto(url);      // open argument passed url
 
-    const postCount = await page.$$('.v1Nh3');  // using the classes that every post contains, to count number of posts
-        console.log(`post count is ${postCount}`)
+    // instead of getting images by counting one by one, using instagram's default posts count section
 
+    const [el] = await page.$x('/html/body/div[1]/section/main/div/header/section/ul/li[1]/a/div');        // select specific element on the url fetched page with 'Full xpath' & assign it to el
+    const text = await el.getProperty('textContent');       // choose type of data needed
+    const postCounter = await text.jsonValue();    // extract the data type
+
+    const postNumber = parseInt(postCounter.replace('posts', ''))
+
+    console.log(postNumber)
+
+    // const postCount = await page.$$('.v1Nh3');  // using the classes that every post contains, to count number of posts
+    //     console.log(`post count is ${postCount}`)
+
+    //     const countPost = await page.evaluate(() => {
+    //         let data = [];
+    //         let elements = document.getElementsByClassName('v1Nh3');
+    //         for (var element of elements)
+    //         data.push(element.textContent);
+    //         console.log(`post count is ${data.length}`)
+    //         return data;
+    //     })        
+        
     const imageHref = await page.evaluate(() => { // function to get link of profile picture
         return document.querySelector('._6q-tv').getAttribute('src').replace('/', '')
-    })
+        })
+    
 
     const profPic = await page.goto(instUrl + imageHref)  // creates profile picture image url
     console.log(`link of profile picture is ${profPic}`)
