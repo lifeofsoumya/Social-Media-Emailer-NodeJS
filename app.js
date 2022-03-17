@@ -66,9 +66,9 @@ scrapeChannel(instUrl)
 
 
 app.get('/', (req, res)=>{
-    setTimeout(()=>{
+    
         res.render("notifier", {postNumberEjs: postNumber, imageHrefFile: igDp});
-    }, 5000);
+    
 })
 
 app.post('/', (req, res)=> {
@@ -77,17 +77,20 @@ app.post('/', (req, res)=> {
 
     console.log(profileUrl, notifyNumber)
 
+    profileUrl = "https://instagram.com/" + profileUrl; // validating input of username or url format
     instUrl = profileUrl
+    
+    if (profileUrl.includes('instagram.com')){
+        console.log('okay url entered')
+    }
+
+    // instUrl = profileUrl
 
     console.log(instUrl)
     scrapeChannel(instUrl)
-
+    setTimeout(()=>{
     res.redirect('/')
-
-    if (profileUrl.includes !== 'instagram.com'){
-        profileUrl = `https://instagram.com/${profileUrl}`; // validating input of username or url format
-        instUrl = profileUrl
-    }
+    }, 5000);
     }
 )
 
