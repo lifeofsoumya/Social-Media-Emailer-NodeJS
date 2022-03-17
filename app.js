@@ -13,6 +13,7 @@ app.use(express.static("public")); // use public folder to access static files l
 var postNumber
 var imageHref
 let igDp
+var showProfileName
 
 var instUrl = 'https://www.instagram.com/lifeofsoumya' // defining the scrape-able url
 
@@ -67,13 +68,14 @@ scrapeChannel(instUrl)
 
 app.get('/', (req, res)=>{
     
-        res.render("notifier", {postNumberEjs: postNumber, imageHrefFile: igDp});
+        res.render("notifier", {postNumberEjs: postNumber, imageHrefFile: igDp, ProfileName: showProfileName});
     
 })
 
 app.post('/', (req, res)=> {
     var profileUrl = req.body.profile;
     var notifyNumber = req.body.notifyNumber;
+    showProfileName = profileUrl;
 
     console.log(profileUrl, notifyNumber)
 
