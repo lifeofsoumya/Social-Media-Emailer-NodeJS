@@ -13,7 +13,7 @@ app.use(express.static("public")); // use public folder to access static files l
 var postNumber
 var imageHref
 
-var instUrl = 'https://www.instagram.com/lifeofsoumya' // defining the scrape-able url
+var instUrl = 'https://www.instagram.com/cristiano' // defining the scrape-able url
 
 async function scrapeChannel(url) { // init function with to be scraped url argument
 
@@ -27,7 +27,7 @@ async function scrapeChannel(url) { // init function with to be scraped url argu
     const text = await el.getProperty('textContent');       // choose type of data needed
     const postCounter = await text.jsonValue();    // extract the data type
 
-    postNumber = parseInt(postCounter.replace('posts', ''))
+    postNumber = parseInt(postCounter.replace(',', ''))
 
     console.log(postNumber)
 
