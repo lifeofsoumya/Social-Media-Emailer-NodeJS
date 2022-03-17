@@ -12,6 +12,7 @@ app.use(express.static("public")); // use public folder to access static files l
 
 var postNumber
 var imageHref
+let igDp
 
 var instUrl = 'https://www.instagram.com/cristiano' // defining the scrape-able url
 
@@ -42,9 +43,11 @@ async function scrapeChannel(url) { // init function with to be scraped url argu
     //         console.log(`post count is ${data.length}`)
     //         return data;
     //     })        
-
-
     // function to get link of profile picture
+    const [el2] = await page.$x('/html/body/div[1]/section/main/div/header/div/div/span/img');        // select specific element on the url fetched page with 'Full xpath' & assign it to el
+    const imgDp = await el2.getProperty('src');       // choose type of data needed
+    igDp = await imgDp.jsonValue();
+    console.log(igDp)
 
     imageHref = await page.evaluate(() => { 
         return document.querySelector('._6q-tv').getAttribute('src').replace('/', '') 
@@ -60,7 +63,7 @@ scrapeChannel(instUrl)
 
 
 app.get('/', (req, res)=>{
-    res.render("notifier", {postNumberEjs: postNumber, imageHrefFile: imageHref});
+    res.render("notifier", {postNumberEjs: postNumber, imageHrefFile: igDp});
 })
 
 app.post('/', (req, res)=> {
