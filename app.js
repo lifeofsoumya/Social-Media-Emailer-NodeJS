@@ -43,12 +43,14 @@ async function scrapeChannel(url) { // init function with to be scraped url argu
     //         console.log(`post count is ${data.length}`)
     //         return data;
     //     })        
-    // function to get link of profile picture
-    const [el2] = await page.$x('/html/body/div[1]/section/main/div/header/div/div/span/img');        // select specific element on the url fetched page with 'Full xpath' & assign it to el
-    const imgDp = await el2.getProperty('src');       // choose type of data needed
+    
+    // Second alternative way to scrape user image
+    const [el2] = await page.$x('/html/body/div[1]/section/main/div/header/div/div/span/img');
+    const imgDp = await el2.getProperty('src');
     igDp = await imgDp.jsonValue();
     console.log(igDp)
-
+    
+    // function to get link of profile picture
     imageHref = await page.evaluate(() => { 
         return document.querySelector('._6q-tv').getAttribute('src').replace('/', '') 
         })
