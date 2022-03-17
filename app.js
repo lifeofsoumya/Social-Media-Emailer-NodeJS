@@ -70,14 +70,25 @@ app.get('/', (req, res)=>{
 })
 
 app.post('/', (req, res)=> {
-    const profileUrl = req.body.profile;
-    const notifyNumber = req.body.notifyNumber;
+    var profileUrl = req.body.profile;
+    var notifyNumber = req.body.notifyNumber;
+
+    console.log(profileUrl, notifyNumber)
+
+    instUrl = profileUrl
+
+    console.log(instUrl)
+    
+    scrapeChannel(instUrl)
+
+    res.redirect('/')
 
     if (profileUrl.includes !== 'instagram.com'){
         profileUrl = `https://instagram.com/${profileUrl}`; // validating input of username or url format
-        // instUrl = profileUrl
+        instUrl = profileUrl
     }
-})
+    }
+)
 
 
 const port = process.env.PORT || 3000;
