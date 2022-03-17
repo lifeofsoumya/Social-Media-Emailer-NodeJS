@@ -66,7 +66,9 @@ scrapeChannel(instUrl)
 
 
 app.get('/', (req, res)=>{
-    res.render("notifier", {postNumberEjs: postNumber, imageHrefFile: igDp});
+    setTimeout(()=>{
+        res.render("notifier", {postNumberEjs: postNumber, imageHrefFile: igDp});
+    }, 5000);
 })
 
 app.post('/', (req, res)=> {
@@ -78,7 +80,6 @@ app.post('/', (req, res)=> {
     instUrl = profileUrl
 
     console.log(instUrl)
-    
     scrapeChannel(instUrl)
 
     res.redirect('/')
