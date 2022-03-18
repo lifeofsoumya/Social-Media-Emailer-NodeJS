@@ -31,9 +31,9 @@ async function scrapeChannel(url) { // init function with to be scraped url argu
     const text = await el.getProperty('textContent');       // choose type of data needed
     const postCounter = await text.jsonValue();
 
-    // await page.waitForSelector('your selector')
-    // let element = await page.$('your selector')
-    // let value = await element.evaluate(el => el.textContent)
+    // await page.waitForSelector('#react-root')
+    // let element = await page.$$('#react-root > section > main > div > header > section > ul > li:nth-child(1) > div')
+    // let postValue = await page.evaluate(el => el.textContent, element)
 
     postNumber = parseInt(postCounter.replace(',', ''))
 
