@@ -11,6 +11,7 @@ app.use(bodyParser.urlencoded({extended:true})); //parses incoming request bodie
 app.use(express.static("public")); // use public folder to access static files like css
 
 var postNumber
+var flCountNumber
 var imageHref
 let igDp
 var showProfileName
@@ -31,7 +32,18 @@ async function scrapeChannel(url) { // init function with to be scraped url argu
 
     postNumber = parseInt(postCounter.replace(',', ''))
 
+
     console.log(postNumber)
+
+    // get follower count
+
+    const [fl] = await page.$x('/html/body/div[1]/section/main/div/header/section/ul/li[1]/a/div');        // select specific element on the url fetched page with 'Full xpath' & assign it to el
+    const textFl = await fl.getProperty('textContent');       // choose type of data needed
+    const flCount = await textFl.jsonValue();    // extract the data type
+
+    flCountNumber = parseInt(flCount.replace(',', ''))
+
+    console.log(flCountNumber) // logs follower count
 
     // const postCount = await page.$$('.v1Nh3');  // using the classes that every post contains, to count number of posts
     //     console.log(`post count is ${postCount}`)
@@ -67,7 +79,7 @@ scrapeChannel(instUrl)
 
 
 app.get('/', (req, res)=>{
-        res.render("notifier", {postNumberEjs: postNumber, imageHrefFile: igDp, ProfileName: showProfileName});
+        res.render("notifier", {postNumberEjs: postNumber, imageHrefFile: igDp, ProfileName: showProfileName, followCount: flCountNumber});
 })
 
 app.post('/', (req, res)=> {
