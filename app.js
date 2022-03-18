@@ -21,6 +21,7 @@ var instUrl = 'https://www.instagram.com/lifeofsoumya' // defining the scrape-ab
 async function scrapeChannel(url) { // init function with to be scraped url argument
 
     const browser = await puppeteer.launch();      // launch puppeteer
+    try {
     const page = await browser.newPage();       // generate a headless browser
     await page.goto(url);      // open argument passed url
 
@@ -28,22 +29,18 @@ async function scrapeChannel(url) { // init function with to be scraped url argu
 
     const [el] = await page.$x('/html/body/div[1]/section/main/div/header/section/ul/li[1]/a/div');        // select specific element on the url fetched page with 'Full xpath' & assign it to el
     const text = await el.getProperty('textContent');       // choose type of data needed
-    const postCounter = await text.jsonValue();    // extract the data type
+    const postCounter = await text.jsonValue();
+
+    // await page.waitForSelector('your selector')
+    // let element = await page.$('your selector')
+    // let value = await element.evaluate(el => el.textContent)
 
     postNumber = parseInt(postCounter.replace(',', ''))
 
 
     console.log(postNumber)
 
-    // get follower count
 
-    const [fl] = await page.$x('/html/body/div[1]/section/main/div/header/section/ul/li[1]/a/div');        // select specific element on the url fetched page with 'Full xpath' & assign it to el
-    const textFl = await fl.getProperty('textContent');       // choose type of data needed
-    const flCount = await textFl.jsonValue();    // extract the data type
-
-    flCountNumber = parseInt(flCount.replace(',', ''))
-
-    console.log(flCountNumber) // logs follower count
 
     // const postCount = await page.$$('.v1Nh3');  // using the classes that every post contains, to count number of posts
     //     console.log(`post count is ${postCount}`)
@@ -69,6 +66,13 @@ async function scrapeChannel(url) { // init function with to be scraped url argu
         return document.querySelector('._6q-tv').getAttribute('src').replace('/', '') 
         })
     console.log(`link of profile picture is ${imageHref}`)
+    }
+    catch (err) {
+        console.error(err.message);
+    }
+    finally {
+        await browser.close();
+    }
 
     // const profPic = await page.goto(instUrl + imageHref) // creates profile picture image url
     // const buffer = await profPic.buffer() // saves image to buffer temp
@@ -79,7 +83,7 @@ scrapeChannel(instUrl)
 
 
 app.get('/', (req, res)=>{
-        res.render("notifier", {postNumberEjs: postNumber, imageHrefFile: igDp, ProfileName: showProfileName, followCount: flCountNumber});
+        res.render("notifier", {postNumberEjs: postNumber, imageHrefFile: igDp, ProfileName: showProfileName});
 })
 
 app.post('/', (req, res)=> {
