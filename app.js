@@ -67,9 +67,7 @@ scrapeChannel(instUrl)
 
 
 app.get('/', (req, res)=>{
-    
         res.render("notifier", {postNumberEjs: postNumber, imageHrefFile: igDp, ProfileName: showProfileName});
-    
 })
 
 app.post('/', (req, res)=> {
@@ -79,11 +77,32 @@ app.post('/', (req, res)=> {
 
     console.log(profileUrl, notifyNumber)
 
-    profileUrl = "https://instagram.com/" + profileUrl; // validating input of username or url format
-    instUrl = profileUrl
+    // if (profileUrl.includes != "instagram.com"){
+    //     profileUrl = "https://instagram.com/" + profileUrl; // validating input of username or url format
+    //     instUrl = profileUrl
+    //     }
+
+    //     var expression = 
+    // /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+    //     var regex = new RegExp(expression);
+    //     var url = 'https://instagram.com/';
+
+    //     function urlCheck() {
+    //         if (url.match(regex)) {
+    //             console.log('valid url')
+    //         } else {
+    //             profileUrl = url + profileUrl;
+    //             instUrl = profileUrl
+    //         }}
+    //         urlCheck()
     
-    if (profileUrl.includes('instagram.com')){
+    if (profileUrl.includes('https://instagram.com')){
         console.log('okay url entered')
+        profileUrl = profileUrl;
+    }
+    else{
+        profileUrl = "https://instagram.com/" + profileUrl; // validating input of username or url format
+        instUrl = profileUrl
     }
 
     // instUrl = profileUrl
