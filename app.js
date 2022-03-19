@@ -92,7 +92,7 @@ app.get('/', (req, res)=>{
 
 app.post('/', (req, res)=> {
     var profileUrl = req.body.profile;
-    var notifyNumber = req.body.notifyNumber;
+    var notifyNumber = parseInt(req.body.notifyingNumber);
     showProfileName = profileUrl;
 
     console.log(profileUrl, notifyNumber)
@@ -124,6 +124,14 @@ app.post('/', (req, res)=> {
         profileUrl = "https://instagram.com/" + profileUrl; // validating input of username or url format
         instUrl = profileUrl
     }
+
+    function checkPostReq(){
+        if (notifyNumber < postNumber){
+            console.log('Notifying level must be greater than present number of posts')
+        }
+    }
+    checkPostReq();
+
 
     // instUrl = profileUrl
 
