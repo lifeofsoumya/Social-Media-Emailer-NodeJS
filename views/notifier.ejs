@@ -30,7 +30,7 @@
     </style>
 </head>
 
-<body>
+<body onload="changDp()">
     <section>
         <div class="container">
             <form action="" method="POST">
@@ -40,10 +40,16 @@
             </form>
         </div>
         <h2> <%= ProfileName %> </h2>
-        <!-- <img class="userdp" src="<%= imageHrefFile %>" width="80px" alt="IG DP"> -->
+        <img src="<%= imageHrefFile %>" width="80px" height="80px" class="user-dp" alt="ig dp"/>
         <img src="https://img.icons8.com/external-kiranshastry-lineal-color-kiranshastry/64/000000/external-user-management-kiranshastry-lineal-color-kiranshastry-3.png"/>
         <p><b>Posts Count:</b> <%= postNumberEjs %></p>
     </section>
+    <script>
+        async function changDp(){
+            var profImgIg = '<%= imageHrefFile %>';
+            document.querySelector('.user-dp').src = await profImgIg;
+        }
+    </script>
 </body>
 
 </html>
