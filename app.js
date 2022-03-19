@@ -1,7 +1,9 @@
 const express = require('express')
-const puppeteer = require('puppeteer');
+// const puppeteer = require('puppeteer');
 const mailer = require('nodemailer')
 const bodyParser = require('body-parser')
+const puppeteer = require('puppeteer-extra');
+const pluginStealth = require('puppeteer-extra-plugin-stealth');
 
 const app = express();
 
@@ -9,6 +11,8 @@ app.set('view engine', 'ejs'); // set the view engine to ejs
 
 app.use(bodyParser.urlencoded({extended:true})); //parses incoming request bodies in a middleware before you handle it
 app.use(express.static("public")); // use public folder to access static files like css
+
+puppeteer.use(pluginStealth());
 
 var postNumber
 var flCountNumber
