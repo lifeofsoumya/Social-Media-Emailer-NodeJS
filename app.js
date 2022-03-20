@@ -19,6 +19,7 @@ var flCountNumber
 var imageHref
 let igDp
 var showProfileName
+var countOk
 
 var instUrl = 'https://www.instagram.com/lifeofsoumya' // defining the scrape-able url
 
@@ -87,7 +88,7 @@ scrapeChannel(instUrl)
 
 
 app.get('/', (req, res)=>{
-        res.render("notifier", {postNumberEjs: postNumber, imageHrefFile: igDp, ProfileName: showProfileName});
+        res.render("notifier", {postNumberEjs: postNumber, imageHrefFile: igDp, ProfileName: showProfileName, countOkay: countOk});
 })
 
 app.post('/', (req, res)=> {
@@ -127,7 +128,10 @@ app.post('/', (req, res)=> {
 
     function checkPostReq(){
         if (notifyNumber < postNumber){
+            countOk = 0;
             console.log('Notifying level must be greater than present number of posts')
+        } else if(notifyNumber > postNumber){
+            countOk = 1;
         }
     }
     checkPostReq();

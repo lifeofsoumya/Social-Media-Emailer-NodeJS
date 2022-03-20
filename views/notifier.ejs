@@ -6,25 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IG Notifier</title>
     <style>
-        *{
+        * {
             text-align: center;
             font-family: poppins;
         }
-        body{
-            display:flex;
+
+        body {
+            display: flex;
             justify-content: center;
             align-items: center;
         }
-        input{
-            border:2px solid grey;
+
+        input {
+            border: 2px solid grey;
             box-sizing: border-box;
-            border-radius:4px;
+            border-radius: 4px;
             padding: 5px 10px;
         }
-        input[type=submit]{
-            cursor:pointer;
+
+        input[type=submit] {
+            cursor: pointer;
         }
-        img{
+
+        img {
             padding: 20px;
         }
     </style>
@@ -39,13 +43,32 @@
                 <input type="submit" placeholder="Submit">
             </form>
         </div>
-        <h2> <%= ProfileName %> </h2>
-        <img src="<%= imageHrefFile %>" width="80px" height="80px" class="user-dp" alt="ig dp"/>
-        <img src="https://img.icons8.com/external-kiranshastry-lineal-color-kiranshastry/64/000000/external-user-management-kiranshastry-lineal-color-kiranshastry-3.png"/>
-        <p><b>Posts Count:</b> <%= postNumberEjs %></p>
+        <h2>
+            <%= ProfileName %>
+        </h2>
+        <img src="<%= imageHrefFile %>" width="80px" height="80px" class="user-dp" alt="ig dp" />
+        <img
+            src="https://img.icons8.com/external-kiranshastry-lineal-color-kiranshastry/64/000000/external-user-management-kiranshastry-lineal-color-kiranshastry-3.png" />
+        <p><b>Posts Count:</b>
+            <%= postNumberEjs %>
+        </p>
+        <h5 class="notify1"></h5>
+        <% if(countOkay==="0" ) { %>
+            <h5>Yo! Notifying level must be greater than present number of posts</h5>
+            <% } %>
+                <% if(countOkay==="1" ) { %>
+                    <h5></h5>
+                    <% } %>
     </section>
     <script>
-        async function changDp(){
+        if ('<%= countOkay %>' === "0") {
+            document.querySelector('.notify1').innerText = "Notifying level must be greater than present number of posts";
+        }
+        else if ('<%= countOkay %>' === "1") {
+            document.querySelector('.notify1').innerText = "";
+        }
+
+        async function changDp() {
             var profImgIg = '<%= imageHrefFile %>';
             document.querySelector('.user-dp').src = await profImgIg;
         }
