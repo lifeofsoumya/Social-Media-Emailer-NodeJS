@@ -1,6 +1,6 @@
 const express = require('express')
 // const puppeteer = require('puppeteer');
-const mailer = require('nodemailer')
+const nodemailer = require('nodemailer')
 const bodyParser = require('body-parser')
 const puppeteer = require('puppeteer-extra');
 const pluginStealth = require('puppeteer-extra-plugin-stealth');
@@ -156,6 +156,19 @@ function sendmail(){
         subject: `New post from ${showProfileName}`,
         html: `You have received Notification from the user post Tracking system`
     };
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+        user: process.env.GMAIL_LOGIN,
+        pass: process.env.GMAIL_PASSWORD
+        }
+    });
+    transporter.sendMail(mailOptions, (err, info) => {
+        if (err) {
+        console.log(err);
+        }
+        console.log('Email Sent Successfully');
+    });
 }
 
 
