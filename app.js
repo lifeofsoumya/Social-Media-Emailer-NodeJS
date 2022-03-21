@@ -4,6 +4,7 @@ const nodemailer = require('nodemailer')
 const bodyParser = require('body-parser')
 const puppeteer = require('puppeteer-extra');
 const pluginStealth = require('puppeteer-extra-plugin-stealth');
+require('dotenv').config();
 
 const app = express();
 
