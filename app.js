@@ -147,6 +147,24 @@ app.post('/', (req, res)=> {
     }
 )
 
+// mail sending functions
+
+function sendmail(){
+    const mailOptions = {
+        from: process.env.GMAIL_LOGIN, // sender address
+        to: process.env.GMAIL_LOGIN, // list of receivers
+        subject: `New post from ${showProfileName}`,
+        html: `You have received Notification from the user post Tracking system`
+    };
+}
+
+
+
+
+
+
+
+
 
 const port = process.env.PORT || 3000;
 app.listen(port, ()=>{console.log(`Listening to port ${port}`)})
