@@ -94,6 +94,7 @@ app.get('/', (req, res)=>{
 
 app.post('/', (req, res)=> {
     var profileUrl = req.body.profile;
+    var profileEmail = req.body.email;
     var notifyNumber = parseInt(req.body.notifyingNumber);
     showProfileName = profileUrl;
 
@@ -153,7 +154,7 @@ app.post('/', (req, res)=> {
 function sendmail(){
     const mailOptions = {
         from: process.env.GMAIL_LOGIN, // sender address
-        to: process.env.GMAIL_LOGIN, // list of receivers
+        to: profileEmail,
         subject: `New post from ${showProfileName}`,
         html: `You have received Notification from the user post Tracking system`
     };
@@ -161,7 +162,7 @@ function sendmail(){
         service: 'gmail',
         auth: {
         user: process.env.GMAIL_LOGIN,
-        pass: process.env.GMAIL_PASSWORD
+        pass: process.env.PASSWORD
         }
     });
     transporter.sendMail(mailOptions, (err, info) => {
