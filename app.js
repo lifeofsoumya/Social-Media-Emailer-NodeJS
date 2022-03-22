@@ -4,6 +4,7 @@ const nodemailer = require('nodemailer')
 const bodyParser = require('body-parser')
 const puppeteer = require('puppeteer-extra');
 const pluginStealth = require('puppeteer-extra-plugin-stealth');
+const cronjob = require('node-cron');
 require('dotenv').config();
 
 const app = express();
@@ -142,10 +143,13 @@ app.post('/', (req, res)=> {
     // instUrl = profileUrl
 
     console.log(instUrl)
+    
+    function runIt(){
     scrapeChannel(instUrl)
     setTimeout(()=>{
     res.redirect('/')
-    }, 5000);
+    }, 5000);}
+    runIt(); // separate function to include it in cronjob
     }
 )
 
@@ -173,12 +177,12 @@ function sendmail(){
     });
 }
 
-
-
-
-
-
-
+cronjob.schedule('* */5 * * *', () => { // running every hour
+    scrapeChannel(instUrl)
+    if(notifyNumber > postNumber){
+        sendmail();
+    }
+    });
 
 
 const port = process.env.PORT || 3000;
