@@ -130,10 +130,10 @@ app.post('/', (req, res)=> {
 
     function checkPostReq(){
         if (notifyNumber < postNumber){
-            countOk = 0;
+            countOk = 0; // means condition not satisfied, also triggers warning popup through ejs
             console.log('Notifying level must be greater than present number of posts')
         } else if(notifyNumber > postNumber){
-            countOk = 1;
+            countOk = 1; // condition is satisfied
         }
     }
     checkPostReq();
