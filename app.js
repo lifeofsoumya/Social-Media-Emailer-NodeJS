@@ -66,7 +66,8 @@ async function scrapeChannel(url) { // init function with to be scraped url argu
     const [el2] = await page.$x('/html/body/div[1]/section/main/div/header/div/div/span/img');
     const imgDp = await el2.getProperty('src');
     igDp = await imgDp.jsonValue();
-    console.log(igDp)
+    // console.log(igDp) 
+    // console logging twice
     
     // function to get link of profile picture
     imageHref = await page.evaluate(() => { 
@@ -177,10 +178,11 @@ function sendmail(){
     });
 }
 
-cronjob.schedule('* */5 * * *', () => { // running every hour
+cronjob.schedule('* * * * *', () => { // running every hour
     scrapeChannel(instUrl)
     if(notifyNumber > postNumber){
         sendmail();
+        console.log('Email sent through cronjob')
     }
     });
 
